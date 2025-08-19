@@ -203,7 +203,7 @@ map('n', '<leader>f', function()
 end, { desc = '[fg] Fuzzily grep' })
 map('n', '<leader>F', function()
   ts.current_buffer_fuzzy_find(ts_dropdown_theme)
-end, { desc = '[fb] Fuzzily search in current buffer' })
+end, { desc = '[F] Fuzzily search in current buffer' })
 
 map('n', '<leader>w', ':w<Enter>', { silent = true, desc = 'Save Buffer' })
 
