@@ -169,9 +169,42 @@ vim.o.confirm = true
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+local map = vim.keymap.set
+local ts = require 'telescope.builtin'
+--local tsproj = require('telescope').extensions.projects
+--local preview = require 'goto-preview'
+local tst = require 'telescope.themes'
+local ts_dropdown_theme = tst.get_dropdown {
+  winblend = 30, -- 70% opacity
+  previewer = true, -- show the context of the highlighted option
+}
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+map('n', '<leader>e', ':NvimTreeToggle<Enter>', { silent = true, desc = 'FileExplorer' })
+
+map('n', '<leader>ki', ':split<Enter>', { silent = true, desc = 'Horizontal split' })
+map('n', '<leader>kl', ':vsplit<Enter>', { silent = true, desc = 'Vertical split' })
+
+map('t', '<C-h>', [[<C-\><C-n><C-W>h]], { silent = true, desc = 'Switch windows left' })
+map('t', '<C-j>', [[<C-\><C-n><C-W>j]], { silent = true, desc = 'Switch windows down' })
+map('t', '<C-k>', [[<C-\><C-n><C-W>k]], { silent = true, desc = 'Switch windows up' })
+map('t', '<C-l>', [[<C-\><C-n><C-W>l]], { silent = true, desc = 'Switch windows right' })
+
+-- drag a visual selection up and down with J and K
+map('v', 'K', ":m '>+1<CR>gv=gv")
+map('v', 'J', ":m '<-2<CR>gv=gv")
+
+map('n', '<leader>f', function()
+  ts.live_grep(ts_dropdown_theme)
+end, { desc = '[fg] Fuzzily grep' })
+map('n', '<leader>F', function()
+  ts.current_buffer_fuzzy_find(ts_dropdown_theme)
+end, { desc = '[fb] Fuzzily search in current buffer' })
+
+map('n', '<leader>w', ':w<Enter>', { silent = true, desc = 'Save Buffer' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -380,6 +413,20 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+
+      -- creates a project list, remembering repos you've been to
+      {
+        'DrKJeff16/project.nvim',
+        config = function()
+          require('project').setup {
+            manual_mode = false,
+            exclude_dirs = { '~/.cargo/*' },
+            detection_methods = { 'lsp', 'pattern' },
+            silent_chdir = true,
+            scope_chdir = 'global',
+          }
+        end,
+      },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -423,6 +470,7 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'projects')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -895,6 +943,19 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
+    end,
+  },
+
+  -- Sidebar File explorer tree
+  {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {}
     end,
   },
 
