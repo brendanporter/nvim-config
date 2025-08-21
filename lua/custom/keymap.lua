@@ -1,5 +1,5 @@
 local map = vim.keymap.set
---local ts = require 'telescope.builtin'
+local ts = require 'telescope.builtin'
 --local tsproj = require('telescope').extensions.projects
 --local preview = require 'goto-preview'
 local tst = require 'telescope.themes'
@@ -27,12 +27,12 @@ map('t', '<C-l>', [[<C-\><C-n><C-W>l]], { silent = true, desc = 'Switch windows 
 map('v', 'K', ":m '>+1<CR>gv=gv")
 map('v', 'J', ":m '<-2<CR>gv=gv")
 
--- map('n', '<leader>f', function()
---   ts.live_grep(ts_dropdown_theme)
--- end, { desc = '[fg] Fuzzily grep' })
--- map('n', '<leader>F', function()
---   ts.current_buffer_fuzzy_find(ts_dropdown_theme)
--- end, { desc = '[F] Fuzzily search in current buffer' })
+map('n', '<leader>f', function()
+  ts.live_grep(ts_dropdown_theme)
+end, { desc = '[f]uzzily grep' })
+map('n', '<leader>F', function()
+  ts.current_buffer_fuzzy_find(ts_dropdown_theme)
+end, { desc = '[F]uzzily search in current buffer' })
 
 map('n', '<leader>w', ':w<Enter>', { silent = true, desc = 'Save Buffer' })
 
