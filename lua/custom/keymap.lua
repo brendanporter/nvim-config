@@ -4,8 +4,8 @@ local ts = require 'telescope.builtin'
 --local preview = require 'goto-preview'
 local tst = require 'telescope.themes'
 local ts_dropdown_theme = tst.get_dropdown {
-    winblend = 30,    -- 70% opacity
-    previewer = true, -- show the context of the highlighted option
+  winblend = 30, -- 70% opacity
+  previewer = true, -- show the context of the highlighted option
 }
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -28,16 +28,18 @@ map('v', 'K', ":m '>+1<CR>gv=gv")
 map('v', 'J', ":m '<-2<CR>gv=gv")
 
 map('n', '<leader>f', function()
-    ts.live_grep(ts_dropdown_theme)
+  ts.live_grep(ts_dropdown_theme)
 end, { desc = '[f]uzzily grep' })
 map('n', '<leader>F', function()
-    ts.current_buffer_fuzzy_find(ts_dropdown_theme)
+  ts.current_buffer_fuzzy_find(ts_dropdown_theme)
 end, { desc = '[F]uzzily search in current buffer' })
 
 map('n', '<leader>w', ':w<Enter>', { silent = true, desc = 'Save Buffer' })
 
-
-map('n', 'gd', function() vim.lsp.buf.definition() end, { silent = true, desc = '[G]o to [D]efinition' })
+map('n', 'gd', function()
+  vim.lsp.buf.definition()
+end, { silent = true, desc = '[G]o to [D]efinition' })
+-- map('i', '<C-i>', function() require('lsp_signature').select_signature_key end, { silent = true, desc = '[G]o to [D]efinition' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
