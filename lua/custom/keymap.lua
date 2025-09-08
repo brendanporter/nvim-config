@@ -18,6 +18,8 @@ map('n', '<leader>kk', ':ToggleTerm direction=float<Enter>', { silent = true, de
 map('n', '<leader>ki', ':split<Enter>', { silent = true, desc = 'Horizontal split' })
 map('n', '<leader>kl', ':vsplit<Enter>', { silent = true, desc = 'Vertical split' })
 
+map('n', '<leader>lr', vim.lsp.buf.rename, { silent = true, desc = 'Rename' })
+
 map('t', '<C-h>', [[<C-\><C-n><C-W>h]], { silent = true, desc = 'Switch windows left' })
 map('t', '<C-j>', [[<C-\><C-n><C-W>j]], { silent = true, desc = 'Switch windows down' })
 map('t', '<C-k>', [[<C-\><C-n><C-W>k]], { silent = true, desc = 'Switch windows up' })
@@ -35,6 +37,7 @@ map('n', '<leader>F', function()
 end, { desc = '[F]uzzily search in current buffer' })
 
 map('n', '<leader>w', ':w<Enter>', { silent = true, desc = 'Save Buffer' })
+-- map('n', '<leader>/', vim.
 
 map('n', 'gd', function()
   vim.lsp.buf.definition()
@@ -42,7 +45,8 @@ end, { silent = true, desc = '[G]o to [D]efinition' })
 -- map('i', '<C-i>', function() require('lsp_signature').select_signature_key end, { silent = true, desc = '[G]o to [D]efinition' })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+--vim.keymap.set('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [q]uickfix list' })
+--vim.keymap.set('n', '<leader>la', vim.l, { desc = 'Open code [a]ctions list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
