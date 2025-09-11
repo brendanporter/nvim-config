@@ -25,6 +25,18 @@ map('t', '<C-j>', [[<C-\><C-n><C-W>j]], { silent = true, desc = 'Switch windows 
 map('t', '<C-k>', [[<C-\><C-n><C-W>k]], { silent = true, desc = 'Switch windows up' })
 map('t', '<C-l>', [[<C-\><C-n><C-W>l]], { silent = true, desc = 'Switch windows right' })
 
+map('n', '<leader>p', '', { silent = true, desc = '[P]review' })
+map('n', '<leader>pd', function()
+  require('goto-preview').goto_preview_definition()
+end, { silent = true, desc = 'Preview Definition' })
+map('n', '<leader>pr', function()
+  require('goto-preview').goto_preview_references()
+end, { silent = true, desc = 'Preview References' })
+
+map('n', '<leader>pc', function()
+  require('goto-preview').close_all_win()
+end, { silent = true, desc = 'Close all Preview windows' })
+
 -- drag a visual selection up and down with J and K
 map('v', 'K', ":m '>+1<CR>gv=gv")
 map('v', 'J', ":m '<-2<CR>gv=gv")
