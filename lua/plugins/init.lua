@@ -489,7 +489,7 @@ return {
         preset = 'none',
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
-        ['<Tab>'] = { 'accept', 'fallback' },
+        ['<C-a>'] = { 'accept', 'fallback' },
         ['<Left>'] = { 'cancel', 'fallback' },
         ['<Right>'] = { 'show_documentation', 'fallback' },
 
