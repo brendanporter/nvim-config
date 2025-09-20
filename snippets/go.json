@@ -1,6 +1,0 @@
-{
-  "Check Error": {
-    "prefix": "iferr",
-    "body": ["if checkError(err){", "\treturn", "}", ""]
-  }
-}
