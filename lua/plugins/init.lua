@@ -450,12 +450,36 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              local ls = require 'luasnip'
+
+              local snippet_dir = vim.fn.stdpath 'config' .. '/lua/snippets/'
+              -- Load all .lua files in the snippets folder
+              -- To add snippets to a new language, create a $language.lua file in the snippets directory
+              for _, file in ipairs(vim.fn.globpath(snippet_dir, '*.lua', 0, 1)) do
+                local lang = vim.fn.fnamemodify(file, ':t:r') -- file name without extension
+                ls.add_snippets(lang, require('snippets.' .. lang))
+              end
+              -- Optional: setup <Tab> / <S-Tab> to jump between snippet placeholders
+              vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+                if ls.expand_or_jumpable() then
+                  ls.expand_or_jump()
+                else
+                  return '<Tab>'
+                end
+              end, { expr = true, silent = true })
+
+              vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
+                if ls.jumpable(-1) then
+                  ls.jump(-1)
+                else
+                  return '<S-Tab>'
+                end
+              end, { expr = true, silent = true })
+            end,
+          },
         },
         opts = {},
       },
